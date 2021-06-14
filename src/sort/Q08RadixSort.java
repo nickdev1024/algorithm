@@ -89,7 +89,9 @@ class Q08RadixSort {
                 digitValue = calcDigitValue(arr[i], digit);
                 help[--sum[digitValue]] = arr[i];
             }
-            sum = new int[size];
+            for (int i = 0; i < size; i++) {
+                sum[i] = 0;
+            }
             System.arraycopy(help, 0, arr, 0, len);
         }
     }
