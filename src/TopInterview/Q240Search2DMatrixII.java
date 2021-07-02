@@ -25,6 +25,29 @@ class Q240Search2DMatrixII {
         return found;
     }
 
+    public boolean test(int[][] matrix, int target) {
+        if (null == matrix || matrix.length == 0 || null == matrix[0] || matrix[0].length == 0) {
+            return false;
+        }
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int row = rows - 1;
+        int col = 0;
+        int val;
+        boolean found = false;
+        while (row >= 0 && col < cols && !found) {
+            val = matrix[row][col];
+            if (val < target) {
+                ++col;
+            } else if (val > target) {
+                --row;
+            } else {
+                found = true;
+            }
+        }
+        return found;
+    }
+
     static public void main(String... args) {
         int[][] matrix = {
                 {1, 4, 7, 11, 15},
@@ -36,7 +59,9 @@ class Q240Search2DMatrixII {
         int target = 5;
         Q240Search2DMatrixII obj = new Q240Search2DMatrixII();
         System.out.println(obj.searchMatrix(matrix, target));
+        System.out.println(obj.test(matrix, target));
         target = 20;
         System.out.println(obj.searchMatrix(matrix, target));
+        System.out.println(obj.test(matrix, target));
     }
 }
