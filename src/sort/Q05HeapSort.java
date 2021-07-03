@@ -78,8 +78,8 @@ class Q05HeapSort {
         while ((root = ((idx - 1) >> 1)) >= 0) {
             if (arr[root] > arr[idx]) {
                 swap(arr, root, idx);
-                idx = root;
             }
+            idx = root;
         }
     }
 
@@ -128,30 +128,33 @@ class Q05HeapSort {
         System.out.println();
     }
 
-    static public void main(String... args) {
+    private void validateSort() {
         int[] arr1, arr2;
         int seed = 100;
-        Q05HeapSort obj = new Q05HeapSort();
         int million = 1_000_000;
 
         long start = System.currentTimeMillis();
         System.out.println("test started ...");
         for (int i = 0; i < million; ++i) {
-            arr1 = obj.generateRandArray(seed);
-            arr2 = obj.copyArray(arr1);
+            arr1 = generateRandArray(seed);
+            arr2 = copyArray(arr1);
 
-//            arr1 = obj.heapSort(arr1);
-            arr1 = obj.heapSort1(arr1);
+            arr1 = heapSort(arr1);
+//            arr1 = heapSort1(arr1);
             Arrays.sort(arr2);
 
-            if (!obj.equal(arr1, arr2)) {
-                obj.printArray(arr1);
-                obj.printArray(arr2);
-                System.err.println("test fail ...");
+            if (!equal(arr1, arr2)) {
+                printArray(arr1);
+                printArray(arr2);
+                System.err.println("test failed ...");
                 return;
             }
         }
         long end = System.currentTimeMillis();
         System.out.printf("test passed ... time taken %.2f seconds%n", (end - start) / 1000f);
+    }
+
+    static public void main(String... args) {
+        new Q05HeapSort().validateSort();
     }
 }

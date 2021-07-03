@@ -7,11 +7,9 @@ class Q06SelectionSort {
     private int[] generateRandArray(int seed) {
         int len = (int) (Math.random() * seed + 1);
         int[] arr = new int[len];
-
         for (int i = 0; i < len; i++) {
             arr[i] = (int) (Math.random() * seed + 1 - Math.random() * seed);
         }
-
         return arr;
     }
 
@@ -67,34 +65,37 @@ class Q06SelectionSort {
             return false;
         }
         int i = 0;
-        boolean equal = true;
+        boolean equal = false;
         while (i < len && (equal = arr1[i] == arr2[i])) {
             ++i;
         }
         return equal;
     }
 
-    static public void main(String... args) {
+    private void validateSort() {
         int[] arr1, arr2;
         int seed = 100;
-        Q06SelectionSort obj = new Q06SelectionSort();
         int million = 1_000_000;
 
         long start = System.currentTimeMillis();
         System.out.println("test started ...");
         for (int i = 0; i < million; ++i) {
-            arr1 = obj.generateRandArray(seed);
-            arr2 = obj.copyArray(arr1);
+            arr1 = generateRandArray(seed);
+            arr2 = copyArray(arr1);
 
-            obj.selectSort(arr1);
+            selectSort(arr1);
             Arrays.sort(arr2);
 
-            if (!obj.equal(arr1, arr2)) {
-                System.err.println("test fail ...");
+            if (!equal(arr1, arr2)) {
+                System.err.println("test failed ...");
                 return;
             }
         }
         long end = System.currentTimeMillis();
         System.out.printf("test passed ... time taken %.2f seconds%n", (end - start) / 1000f);
+    }
+
+    static public void main(String... args) {
+        new Q06SelectionSort().validateSort();
     }
 }
